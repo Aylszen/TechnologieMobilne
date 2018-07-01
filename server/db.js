@@ -14,8 +14,6 @@ mongodb.connect(config.dbConnUrl, (err, client) => {
 
     let db = client.db(dbName);
     usersCollection = db.collection('users');
-    tablesCollection = db.collection('tables');
-
 });
 
 module.exports = {
@@ -29,6 +27,15 @@ module.exports = {
         delete: () => {
 
         },
+        getAll: () => {
+          var getAllUsers = new Promise(function(resolve, reject) {
+          usersCollection.find({}).toArray(function(err, result) {
+            if (err) throw err;
+            resolve(result);
+            });
+  });
+  return getAllUsers;
+},
         findById: (id) => {
             return usersCollection.findOne({_id: id});
         },
@@ -36,9 +43,4 @@ module.exports = {
             return usersCollection.findOne({username: username});
         }
     },
-    tables: {
-        create: (tables) => {
-            return tablesCollection.insertOne(tables);
-        }
-      }
 };

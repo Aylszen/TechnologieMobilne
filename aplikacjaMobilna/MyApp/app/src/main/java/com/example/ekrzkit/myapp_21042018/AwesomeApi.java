@@ -5,6 +5,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 /**
@@ -13,10 +14,10 @@ import retrofit2.http.POST;
 
 public interface AwesomeApi {
 
-    @GET("login/")
+    @GET("users/")
     Call<List<User>> getUsers();
 
     @POST("register/")
-    Call<User> createUser(@Body UserObject userobject);
+    Call<LoginResponse> createUser(@Body UserObject userobject, @Header("Authorization") String token);
 
 }

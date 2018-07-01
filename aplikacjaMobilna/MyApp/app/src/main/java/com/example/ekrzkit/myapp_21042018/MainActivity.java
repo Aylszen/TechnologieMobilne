@@ -55,8 +55,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 }    private void callGetUsers() {
-        //Toast.makeText(this, "DADA", Toast.LENGTH_SHORT).show();
-        //textView.setText("DADA");
         Call<List<User>> callGetUsers = awesomeApi.getUsers();
         callGetUsers.enqueue(new Callback<List<User>>() {
             @Override
@@ -91,14 +89,15 @@ public class MainActivity extends AppCompatActivity {
         user.setId("12241");
         user.setName("Kita Krzysztof");
         UserObject userobject = new UserObject(user);
-        Call<User> callGetUsers = awesomeApi.createUser(userobject);
-        callGetUsers.enqueue(new Callback<User>() {
+        Call<LoginResponse> callGetUsers = awesomeApi.createUser(userobject, "REGISTER");
+        callGetUsers.enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 textView.setText("");
                 if (response.isSuccessful())
                 {
-                    textView.append(response.body().getName() + "\n");
+                    textView.append(response.body().getInfo() + "\n");
+                    Log.i("REGISTER_RESPONSE", response.body().getInfo());
                 }
                 else {
                     textView.setText("Fail with creating new user");
@@ -106,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
                     textView.setText("Fail with creating new user2");
                 Log.e("cos", t.getLocalizedMessage(), t);
                 t.printStackTrace();
