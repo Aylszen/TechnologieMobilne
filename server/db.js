@@ -3,7 +3,7 @@ const ObjectId = require('mongodb').ObjectId;
 
 const config = require('./config');
 
-const dbName = 'inzynierka';
+const dbName = 'technologiemobilne';
 let dbClient, usersCollection;
 
 mongodb.connect(config.dbConnUrl, (err, client) => {

@@ -3,11 +3,8 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
 const db = require('./db.js');
-
 const app = express();
-
 const PORT = 8080;
-const BASE_PATH = '/trello_copy_app/api';
 
 app.use(bodyParser.json());
 console.log(__dirname);
